@@ -6,8 +6,9 @@
     "configurations": [
         {
             "name": "Python: Current File",
-            "type": "pythonExperimental",
+            "type": "python",
             "request": "launch",
+            "debugStdLib": true,
             "program": "${file}"
         },
         {

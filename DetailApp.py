@@ -3,9 +3,10 @@ from PyQt5 import QtCore
 # from PyQt5.QtGui import QIcon, QPixmap, QImage
 from ui_detaildialog import Ui_DetailDialog
 from congress import Congress
+import config
 
 class DetailDialog(QDialog):
-    API_KEY = 'yVbIvFN2w9CBAvRLcTHheLYA4o8mDmjJqPlpagma'
+    API_KEY = config.APP_CONFIG['api_key']
     m_person_id = None
     m_parent = None
     
@@ -23,18 +24,6 @@ class DetailDialog(QDialog):
         
         self.getPersonDetail()
         
-        # Connect up the buttons and widgets
-        # self.person_detail.buttonClose.clicked.connect(self.onCloseClick)
-        # self.person_detail.buttonTrivia.clicked.connect(self.onTriviaClick)
-        # self.person_detail.listMovies.clicked.connect(self.onMovieClick)
-
-        # self.m_person_id = person_id
-        # Use m_parent to call MovieDialog
-        # self.m_parent = parent
-
-        # self.getActorInfo()
-        # self.getMovieInfo()
-
         # QApplication.setOverrideCursor(QtCore.Qt.ArrowCursor)
         
     def getPersonDetail(self):
@@ -49,27 +38,35 @@ class DetailDialog(QDialog):
             self.person_detail.textBirthday.setText(str(senator["date_of_birth"]))
             self.person_detail.textPhone.setText(str(senator["roles"][0]["phone"]))
             self.person_detail.textAddress.setText(str(senator["roles"][0]["office"]))
+
+            # ToDo Change to lbl... 12/18/2018
             self.person_detail.textContact.setText(str(senator["roles"][0]["contact_form"]))
             self.person_detail.textWeb.setText(str(senator["url"]))
+            self.person_detail.lblGovTrack.setOpenExternalLinks(True)
+            self.person_detail.lblVoteSmart.setOpenExternalLinks(True)
+            self.person_detail.lblCrp.setOpenExternalLinks(True)
             
             if senator["govtrack_id"]:
                 url_name = str(senator["first_name"]+ "_" + str(senator["last_name"]))
                 url = "https://www.govtrack.us/congress/members/" + url_name + "/"
-                self.person_detail.textGovTrack.setText(url + str(senator["govtrack_id"]))
+                self.person_detail.lblGovTrack.setText('<a href=' + url + str(senator["govtrack_id"]) + '>GovTrack</a>')
             else:
-                self.person_detail.textGovTrack.setText("None")
+                self.person_detail.lblGovTrack.setText("None")
             
             if senator["votesmart_id"]:
                 url = "https://votesmart.org/candidate/"
-                self.person_detail.textVoteSmart.setText(url + str(senator["votesmart_id"]))
+                self.person_detail.lblVoteSmart.setText('<a href=' + url + str(senator["votesmart_id"]) + '>VoteSmart</a>')
             else:
-                self.person_detail.textVoteSmart.setText("None")
+                self.person_detail.lblVoteSmart.setText("None")
             
             if senator["crp_id"]:
-                url = "https://www.opensecrets.org/members-of-congress/summary?cid="
-                self.person_detail.textCrp.setText(url + str(senator["crp_id"]))
+                # url = "https://www.opensecrets.org/members-of-congress/summary?cid="
+                # Need to escape the = sign with &#61;
+                url = "https://www.opensecrets.org/members-of-congress/summary?cid&#61;"
+                crp_link = '<a href=' + url + str(senator["crp_id"]) + '>CRP</a>'
+                self.person_detail.lblCrp.setText(crp_link)
             else:
-                self.person_detail.textCrp.setText("None")
+                self.person_detail.lblCrp.setText("None")
             
         except KeyError:
             pass

@@ -120,8 +120,12 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="textWeb"/>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Contact</string>
+       </property>
+      </widget>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="label_9">
@@ -129,9 +133,6 @@
         <string>CRP</string>
        </property>
       </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLineEdit" name="textCrp"/>
      </item>
      <item row="10" column="0">
       <widget class="QLabel" name="label12">
@@ -141,7 +142,11 @@
       </widget>
      </item>
      <item row="10" column="1">
-      <widget class="QLineEdit" name="textGovTrack"/>
+      <widget class="QLabel" name="lblGovTrack">
+       <property name="text">
+        <string>Link</string>
+       </property>
+      </widget>
      </item>
      <item row="11" column="0">
       <widget class="QLabel" name="label_10">
@@ -151,17 +156,32 @@
       </widget>
      </item>
      <item row="11" column="1">
-      <widget class="QLineEdit" name="textVoteSmart"/>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_11">
+      <widget class="QLabel" name="lblVoteSmart">
        <property name="text">
-        <string>Contact</string>
+        <string>Link</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="lblCrp">
+       <property name="text">
+        <string>Link</string>
        </property>
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QLineEdit" name="textContact"/>
+      <widget class="QLabel" name="lblContact">
+       <property name="text">
+        <string>Link</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLabel" name="lblWeb">
+       <property name="text">
+        <string>Link</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

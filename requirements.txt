@@ -1,0 +1,5 @@
+httplib2==0.11.3
+PyQt5==5.10.1
+python-congress==0.3.5
+sip==4.19.8
+six==1.11.0

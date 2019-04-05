@@ -3,13 +3,14 @@ from PyQt5 import QtCore
 from ui_maindialog import Ui_MainDialog
 from DetailApp import DetailDialog
 from congress import Congress
+import config
 
 # ToDo, convert to main window and add Search menu
 
 class MainDialog(QDialog):
     dictSenate = {}
     dictHouse = {}
-    API_KEY = 'yVbIvFN2w9CBAvRLcTHheLYA4o8mDmjJqPlpagma'
+    API_KEY = config.APP_CONFIG['api_key']
 
     def __init__(self, *positional_parameters, **keyword_parameters):
         super(MainDialog, self).__init__()
@@ -78,6 +79,6 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    # dialog = MovieDialog(optional="Casablanca")
     dialog = MainDialog()
-    sys.exit(dialog.exec_())
+    dialog.exec_()
+    # sys.exit()
