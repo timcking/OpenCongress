@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>476</height>
+    <width>511</width>
+    <height>325</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,31 +113,10 @@
      <item row="6" column="1">
       <widget class="QLineEdit" name="textAddress"/>
      </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_8">
+     <item row="9" column="1">
+      <widget class="QLabel" name="lblCrp">
        <property name="text">
-        <string>Web</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>Contact</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>CRP</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="label12">
-       <property name="text">
-        <string>GovTrack</string>
+        <string>Link</string>
        </property>
       </widget>
      </item>
@@ -148,22 +127,8 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>VoteSmart</string>
-       </property>
-      </widget>
-     </item>
      <item row="11" column="1">
       <widget class="QLabel" name="lblVoteSmart">
-       <property name="text">
-        <string>Link</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLabel" name="lblCrp">
        <property name="text">
         <string>Link</string>
        </property>

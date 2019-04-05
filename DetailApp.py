@@ -16,7 +16,7 @@ class DetailDialog(QDialog):
         # Set up the user interface from Designer.
         self.person_detail = Ui_DetailDialog()
         self.resize(800, 625)
-        self.setMinimumSize(QtCore.QSize(600, 400))
+        self.setMinimumSize(QtCore.QSize(600, 500))
         self.person_detail.setupUi(self)
         
         self.m_person_id = positional_parameters[1]
@@ -40,24 +40,36 @@ class DetailDialog(QDialog):
             self.person_detail.textAddress.setText(str(senator["roles"][0]["office"]))
 
             # ToDo Change to lbl... 12/18/2018
-            self.person_detail.textContact.setText(str(senator["roles"][0]["contact_form"]))
-            self.person_detail.textWeb.setText(str(senator["url"]))
+            self.person_detail.lblContact.setOpenExternalLinks(True)
+            self.person_detail.lblWeb.setOpenExternalLinks(True)
             self.person_detail.lblGovTrack.setOpenExternalLinks(True)
             self.person_detail.lblVoteSmart.setOpenExternalLinks(True)
             self.person_detail.lblCrp.setOpenExternalLinks(True)
+
+            if senator["roles"][0]["contact_form"]:
+                contact_url = senator["roles"][0]["contact_form"]
+                self.person_detail.lblContact.setText('<a href=' + contact_url + '>Contact</a>')
+            else:
+                self.person_detail.lblContact.setText("No Contact Link")
+
+            if senator["url"]:
+                self.person_detail.lblWeb.setText('<a href=' + senator["url"] + '>Web</a>')
+            else:
+                self.person_detail.lblWeb.setText("No Web Address")
+
             
             if senator["govtrack_id"]:
                 url_name = str(senator["first_name"]+ "_" + str(senator["last_name"]))
                 url = "https://www.govtrack.us/congress/members/" + url_name + "/"
                 self.person_detail.lblGovTrack.setText('<a href=' + url + str(senator["govtrack_id"]) + '>GovTrack</a>')
             else:
-                self.person_detail.lblGovTrack.setText("None")
+                self.person_detail.lblGovTrack.setText("No GovTrack")
             
             if senator["votesmart_id"]:
                 url = "https://votesmart.org/candidate/"
                 self.person_detail.lblVoteSmart.setText('<a href=' + url + str(senator["votesmart_id"]) + '>VoteSmart</a>')
             else:
-                self.person_detail.lblVoteSmart.setText("None")
+                self.person_detail.lblVoteSmart.setText("No VoteSmart")
             
             if senator["crp_id"]:
                 # url = "https://www.opensecrets.org/members-of-congress/summary?cid="
@@ -66,7 +78,7 @@ class DetailDialog(QDialog):
                 crp_link = '<a href=' + url + str(senator["crp_id"]) + '>CRP</a>'
                 self.person_detail.lblCrp.setText(crp_link)
             else:
-                self.person_detail.lblCrp.setText("None")
+                self.person_detail.lblCrp.setText("No CRP")
             
         except KeyError:
             pass
