@@ -17,8 +17,8 @@ class MainDialog(QDialog):
 
         # Set up the user interface from Designer.
         self.ui = Ui_MainDialog()
-        self.resize(800, 625)
-        self.setMinimumSize(QtCore.QSize(600, 400))
+        self.resize(600, 325)
+        self.setMinimumSize(QtCore.QSize(600, 325))
         self.ui.setupUi(self)
 
         self.ui.buttonBox.clicked.connect(self.close)

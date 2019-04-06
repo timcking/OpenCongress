@@ -15,8 +15,8 @@ class DetailDialog(QDialog):
 
         # Set up the user interface from Designer.
         self.person_detail = Ui_DetailDialog()
-        self.resize(800, 625)
-        self.setMinimumSize(QtCore.QSize(600, 500))
+        self.resize(550, 400)
+        self.setMinimumSize(QtCore.QSize(550, 400))
         self.person_detail.setupUi(self)
         
         self.m_person_id = positional_parameters[1]
@@ -39,7 +39,6 @@ class DetailDialog(QDialog):
             self.person_detail.textPhone.setText(str(senator["roles"][0]["phone"]))
             self.person_detail.textAddress.setText(str(senator["roles"][0]["office"]))
 
-            # ToDo Change to lbl... 12/18/2018
             self.person_detail.lblContact.setOpenExternalLinks(True)
             self.person_detail.lblWeb.setOpenExternalLinks(True)
             self.person_detail.lblGovTrack.setOpenExternalLinks(True)
@@ -56,7 +55,6 @@ class DetailDialog(QDialog):
                 self.person_detail.lblWeb.setText('<a href=' + senator["url"] + '>Web</a>')
             else:
                 self.person_detail.lblWeb.setText("No Web Address")
-
             
             if senator["govtrack_id"]:
                 url_name = str(senator["first_name"]+ "_" + str(senator["last_name"]))
