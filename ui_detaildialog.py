@@ -11,10 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DetailDialog(object):
     def setupUi(self, DetailDialog):
         DetailDialog.setObjectName("DetailDialog")
+<<<<<<< HEAD
         DetailDialog.resize(412, 396)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("dome.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         DetailDialog.setWindowIcon(icon)
+=======
+        DetailDialog.resize(412, 244)
+>>>>>>> parent of f2a6be1... Added app icon
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(DetailDialog)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -131,7 +135,7 @@ class Ui_DetailDialog(object):
         self.lblCrp.setObjectName("lblCrp")
         self.horizontalLayout.addWidget(self.lblCrp)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        spacerItem = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem)
         self.buttonBox = QtWidgets.QDialogButtonBox(DetailDialog)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Close)

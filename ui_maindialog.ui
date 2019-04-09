@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Open Congress</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>dome.jpg</normaloff>dome.jpg</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
