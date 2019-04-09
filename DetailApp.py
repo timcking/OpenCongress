@@ -32,16 +32,16 @@ class DetailDialog(QDialog):
         senator = self.congress.members.get(self.m_person_id)
         
         # Core dumps on Amy Finknauer, need try/catch
-        url = 'https://theunitedstates.io/images/congress/225x275/' + self.m_person_id + '.jpg'
-        img = QImage()
-        data = urllib.request.urlopen(url).read()
-        img.loadFromData(data)
-        
-        if img:
-            self.person_detail.lblPhoto.setPixmap(QPixmap(img).scaledToWidth(100))
-        else:
-            self.person_detail.lblPhotot.setText("Photo not available")
+        try:
+            url = 'https://theunitedstates.io/images/congress/450x550/' + self.m_person_id + '.jpg'
+            # url = 'https://theunitedstates.io/images/congress/225x275/' + self.m_person_id + '.jpg'
+            img = QImage()
+            data = urllib.request.urlopen(url).read()
+            img.loadFromData(data)
+        except Exception as e:
+            pass
 
+        self.person_detail.lblPhoto.setPixmap(QPixmap(img).scaledToWidth(100))
         try:
             self.person_detail.lblName.setText(str(senator["first_name"]) + " " + str(senator["last_name"]))
             self.person_detail.textState.setText(str(senator["roles"][0]["state"]))
