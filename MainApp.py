@@ -58,6 +58,15 @@ class MainDialog(QDialog):
         cur_row = self.ui.listSenate.currentRow()
         personTitle = (self.ui.listSenate.currentItem().text())
         person_id = self.dictSenate[cur_row]
+
+
+        print (person_id)
+        # https://theunitedstates.io/images/congress/225x275/M001153.jpg
+        # https://theunitedstates.io/images/congress/[size]/[bioguide].jpg
+        # [size] can be one of:
+        # original - As originally downloaded. Typically, 675x825, but it can vary.
+        # 450x550
+        # 225x275
         
         self.person_detail = DetailDialog(self, person_id)
         self.person_detail.exec_()

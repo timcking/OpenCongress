@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5 import QtCore
-# from PyQt5.QtGui import QIcon, QPixmap, QImage
+from PyQt5.QtGui import QIcon, QPixmap, QImage
 from ui_detaildialog import Ui_DetailDialog
 from congress import Congress
+import urllib.request
 import config
 
 class DetailDialog(QDialog):
@@ -15,8 +16,8 @@ class DetailDialog(QDialog):
 
         # Set up the user interface from Designer.
         self.person_detail = Ui_DetailDialog()
-        self.resize(550, 400)
-        self.setMinimumSize(QtCore.QSize(550, 400))
+        self.resize(550, 500)
+        self.setMinimumSize(QtCore.QSize(550, 500))
         self.person_detail.setupUi(self)
         
         self.m_person_id = positional_parameters[1]
@@ -30,8 +31,19 @@ class DetailDialog(QDialog):
         self.congress = Congress(self.API_KEY)
         senator = self.congress.members.get(self.m_person_id)
         
+        # Core dumps on Amy Finknauer, need try/catch
+        url = 'https://theunitedstates.io/images/congress/225x275/' + self.m_person_id + '.jpg'
+        img = QImage()
+        data = urllib.request.urlopen(url).read()
+        img.loadFromData(data)
+        
+        if img:
+            self.person_detail.lblPhoto.setPixmap(QPixmap(img).scaledToWidth(100))
+        else:
+            self.person_detail.lblPhotot.setText("Photo not available")
+
         try:
-            self.person_detail.textName.setText(str(senator["first_name"]) + " " + str(senator["last_name"]))
+            self.person_detail.lblName.setText(str(senator["first_name"]) + " " + str(senator["last_name"]))
             self.person_detail.textState.setText(str(senator["roles"][0]["state"]))
             self.person_detail.textParty.setText(str(senator["roles"][0]["party"]))
             self.person_detail.textChamber.setText(str(senator["roles"][0]["chamber"]))

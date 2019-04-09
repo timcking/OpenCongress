@@ -17,12 +17,12 @@ def getChamberList(chamber):
         
     i = 0
     while i < num_results:
+        state = member_list[i]["state"]
         dictPerson[i] = member_list[i]["id"]
         cdb_id = member_list[i]["id"]
         title = member_list[i]["short_title"]
         first_name = member_list[i]["first_name"]
         last_name = member_list[i]["last_name"]
-        state = member_list[i]["state"]
         party = member_list[i]["party"]
         print ("%s: %s %s %s (%s) %s" % (cdb_id, title, first_name, last_name, party, state))
         i += 1
@@ -31,5 +31,5 @@ def getChamberList(chamber):
 # print (pelosi['twitter_account'])
 
 if __name__ == '__main__':
-    getChamberList("senate")   
+    getChamberList("house")   
         
