@@ -12,6 +12,9 @@ class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
         MainDialog.setObjectName("MainDialog")
         MainDialog.resize(702, 534)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("dome.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainDialog.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(MainDialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
