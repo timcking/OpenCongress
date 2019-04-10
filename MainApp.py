@@ -59,18 +59,9 @@ class MainDialog(QDialog):
         personTitle = (self.ui.listSenate.currentItem().text())
         person_id = self.dictSenate[cur_row]
 
-
-        print (person_id)
-        # https://theunitedstates.io/images/congress/225x275/M001153.jpg
-        # https://theunitedstates.io/images/congress/[size]/[bioguide].jpg
-        # [size] can be one of:
-        # original - As originally downloaded. Typically, 675x825, but it can vary.
-        # 450x550
-        # 225x275
-        
         self.person_detail = DetailDialog(self, person_id)
         self.person_detail.exec_()
-    
+
     def onHouseClick(self):
         cur_row = self.ui.listHouse.currentRow()
         personTitle = (self.ui.listHouse.currentItem().text())
@@ -79,11 +70,6 @@ class MainDialog(QDialog):
         self.person_detail = DetailDialog(self, person_id)
         self.person_detail.exec_()
     
-    def onSearchClick(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        # ToDo
-        QApplication.setOverrideCursor(QtCore.Qt.ArrowCursor)
-
 if __name__ == '__main__':
     import sys
 

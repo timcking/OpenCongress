@@ -31,10 +31,14 @@ class DetailDialog(QDialog):
         self.congress = Congress(self.API_KEY)
         senator = self.congress.members.get(self.m_person_id)
         
-        # Core dumps on Amy Finknauer, need try/catch
+        # https://theunitedstates.io/images/congress/[size]/[bioguide].jpg
+        # [size] can be one of:
+        # original - As originally downloaded. Typically, 675x825, but it can vary.
+        # 450x550
+        # 225x275
+
         try:
             url = 'https://theunitedstates.io/images/congress/450x550/' + self.m_person_id + '.jpg'
-            # url = 'https://theunitedstates.io/images/congress/225x275/' + self.m_person_id + '.jpg'
             img = QImage()
             data = urllib.request.urlopen(url).read()
             img.loadFromData(data)
@@ -61,25 +65,25 @@ class DetailDialog(QDialog):
                 contact_url = senator["roles"][0]["contact_form"]
                 self.person_detail.lblContact.setText('<a href=' + contact_url + '>Contact</a>')
             else:
-                self.person_detail.lblContact.setText("No Contact Link")
+                self.person_detail.lblContact.setText("Contact")
 
             if senator["url"]:
                 self.person_detail.lblWeb.setText('<a href=' + senator["url"] + '>Web</a>')
             else:
-                self.person_detail.lblWeb.setText("No Web Address")
+                self.person_detail.lblWeb.setText("Web")
             
             if senator["govtrack_id"]:
                 url_name = str(senator["first_name"]+ "_" + str(senator["last_name"]))
                 url = "https://www.govtrack.us/congress/members/" + url_name + "/"
                 self.person_detail.lblGovTrack.setText('<a href=' + url + str(senator["govtrack_id"]) + '>GovTrack</a>')
             else:
-                self.person_detail.lblGovTrack.setText("No GovTrack")
+                self.person_detail.lblGovTrack.setText("GovTrack")
             
             if senator["votesmart_id"]:
                 url = "https://votesmart.org/candidate/"
                 self.person_detail.lblVoteSmart.setText('<a href=' + url + str(senator["votesmart_id"]) + '>VoteSmart</a>')
             else:
-                self.person_detail.lblVoteSmart.setText("No VoteSmart")
+                self.person_detail.lblVoteSmart.setText("VoteSmart")
             
             if senator["crp_id"]:
                 # url = "https://www.opensecrets.org/members-of-congress/summary?cid="
@@ -88,7 +92,7 @@ class DetailDialog(QDialog):
                 crp_link = '<a href=' + url + str(senator["crp_id"]) + '>CRP</a>'
                 self.person_detail.lblCrp.setText(crp_link)
             else:
-                self.person_detail.lblCrp.setText("No CRP")
+                self.person_detail.lblCrp.setText("CRP")
             
         except KeyError:
             pass
