@@ -8,7 +8,7 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "debugStdLib": true,
+            "justMyCode": false,
             "program": "${file}"
         },
         {

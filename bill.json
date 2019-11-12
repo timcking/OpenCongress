@@ -1,0 +1,4 @@
+{'active': False, 'bill_id': 'hr1548-116', 'bill_type': 'hr', 'bill_uri': 'https://api.propubl...1548.json', 'committees': 'House Judiciary Committee', 'congress': '116', 'congressdotgov_url': 'https://www.congres...bill/1548', 'cosponsors': 0, 'cosponsors_by_party': {}, 'enacted': None, 'govtrack_url': 'https://www.govtrac...16/hr1548', 'gpo_pdf_uri': 'https://www.govinfo...548ih.pdf', 'house_passage': None, 'introduced_date': '2019-03-05', ...}
+
+{'active': None, 'bill_id': 'hr823-112', 'bill_type': 'hr', 'bill_uri': 'https://api.propubl...r823.json', 'committees': 'House Judiciary; Se...Judiciary', 'congress': '112', 'congressdotgov_url': 'https://www.congres...-bill/823', 'cosponsors': 0, 'cosponsors_by_party': {}, 'enacted': None, 'govtrack_url': 'https://www.govtrac...112/hr823', 'gpo_pdf_uri': None, 'house_passage': '2012-12-04', 'introduced_date': '2011-02-18', ...}:wq
+

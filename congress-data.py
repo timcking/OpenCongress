@@ -8,6 +8,10 @@ def getChamberList(chamber):
     
     congress = Congress(API_KEY)
     all_members = congress.members.filter(chamber)
+    bills = congress.members.bills('P000197')
+
+    for bill in bills:
+        print(bill)
     
     # print (all_members)
     num_results = int(all_members[0]["num_results"])

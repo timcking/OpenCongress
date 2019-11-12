@@ -1,4 +1,4 @@
 {
     "python.linting.pylintEnabled": false,
-    "python.pythonPath": "/home/tking/venv/OpenCongress/bin/python"
+    "python.pythonPath": "/home/tking/venv/oc/bin/python"
 }

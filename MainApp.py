@@ -27,30 +27,30 @@ class MainDialog(QDialog):
         self.ui.listHouse.clicked.connect(self.onHouseClick)
         
         self.congress = Congress(self.API_KEY)
-        self.getChamberList("senate")
-        self.getChamberList("house")
+        self.getChamberList('senate')
+        self.getChamberList('house')
         
     def getChamberList(self, chamber):
         all_members = self.congress.members.filter(chamber)
         
         # print (all_members)
-        num_results = int(all_members[0]["num_results"])
+        num_results = int(all_members[0]['num_results'])
         
-        member_list = all_members[0]["members"]
+        member_list = all_members[0]['members']
             
         i = 0
         while i < num_results:
-            first_name = member_list[i]["first_name"]
-            last_name = member_list[i]["last_name"]
-            state = member_list[i]["state"]
-            party = member_list[i]["party"]
-            memberLine = str.format("%s %s (%s) %s" % (first_name, last_name, party, state))
+            first_name = member_list[i]['first_name']
+            last_name = member_list[i]['last_name']
+            state = member_list[i]['state']
+            party = member_list[i]['party']
+            memberLine = str.format('%s %s (%s) %s' % (first_name, last_name, party, state))
             
-            if chamber == "senate":
-                self.dictSenate[i] = member_list[i]["id"]
+            if chamber == 'senate':
+                self.dictSenate[i] = member_list[i]['id']
                 self.ui.listSenate.addItem(memberLine)
             else:
-                self.dictHouse[i] = member_list[i]["id"]
+                self.dictHouse[i] = member_list[i]['id']
                 self.ui.listHouse.addItem(memberLine)
             i += 1
         
