@@ -1,31 +1,35 @@
-from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5 import QtCore
-from ui_maindialog import Ui_MainDialog
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from ui_mainapp import Ui_MainWindow
 from DetailApp import DetailDialog
 from congress import Congress
 import config
 
-# ToDo, convert to main window and add Search menu
-
-class MainDialog(QDialog):
+class AppWindow(QMainWindow):
     dictSenate = {}
     dictHouse = {}
     API_KEY = config.APP_CONFIG['api_key']
 
-    def __init__(self, *positional_parameters, **keyword_parameters):
-        super(MainDialog, self).__init__()
+    def __init__(self):
+        super().__init__()
 
         # Set up the user interface from Designer.
-        self.ui = Ui_MainDialog()
+        self.ui = Ui_MainWindow()
         self.resize(600, 325)
-        self.setMinimumSize(QtCore.QSize(600, 325))
+        self.setMinimumSize(QSize(600, 325))
         self.ui.setupUi(self)
 
         self.ui.buttonBox.clicked.connect(self.close)
 
         self.ui.listSenate.clicked.connect(self.onSenateClick)
         self.ui.listHouse.clicked.connect(self.onHouseClick)
-        
+
+        # Search 
+        # Use lambda to pass parameters with signals
+        self.ui.leSearchSenate.returnPressed.connect(lambda: self.onSearchClick('senate'))
+        self.ui.leSearchHouse.returnPressed.connect(lambda: self.onSearchClick('house'))
+
         self.congress = Congress(self.API_KEY)
         self.getChamberList('senate')
         self.getChamberList('house')
@@ -45,7 +49,7 @@ class MainDialog(QDialog):
             state = member_list[i]['state']
             party = member_list[i]['party']
             memberLine = str.format('%s %s (%s) %s' % (first_name, last_name, party, state))
-            
+           
             if chamber == 'senate':
                 self.dictSenate[i] = member_list[i]['id']
                 self.ui.listSenate.addItem(memberLine)
@@ -53,10 +57,37 @@ class MainDialog(QDialog):
                 self.dictHouse[i] = member_list[i]['id']
                 self.ui.listHouse.addItem(memberLine)
             i += 1
-        
+
+    def onSearchClick(self, chamber):
+        if chamber == 'senate':
+            if self.ui.leSearchSenate.text():
+                searchText = self.ui.leSearchSenate.text()
+            else:
+                self.ui.leSearchSenate.setFocus()
+                return
+
+            items = self.ui.listSenate.findItems(searchText, Qt.MatchContains)
+
+            if len(items) > 0:
+                for item in items:
+                    self.ui.listSenate.setCurrentRow(self.ui.listSenate.row(item))
+
+        if chamber == 'house':
+            if self.ui.leSearchHouse.text():
+                searchText = self.ui.leSearchHouse.text()
+            else:
+                self.ui.leSearchHouse.setFocus()
+                return
+
+            items = self.ui.listHouse.findItems(searchText, Qt.MatchContains)
+
+            if len(items) > 0:
+                for item in items:
+                    self.ui.listHouse.setCurrentRow(self.ui.listHouse.row(item))
+
     def onSenateClick(self):
         cur_row = self.ui.listSenate.currentRow()
-        personTitle = (self.ui.listSenate.currentItem().text())
+        personTitle = self.ui.listSenate.currentItem().text()
         person_id = self.dictSenate[cur_row]
 
         self.person_detail = DetailDialog(self, person_id)
@@ -74,6 +105,7 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
-    dialog = MainDialog()
-    dialog.exec_()
-    # sys.exit()
+    w = AppWindow()
+    w.show()
+
+    sys.exit(app.exec_())
