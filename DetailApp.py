@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5 import QtCore
-from PyQt5.QtGui import QIcon, QPixmap, QImage
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from ui_detaildialog import Ui_DetailDialog
 from congress import Congress
 import urllib.request
@@ -11,7 +11,6 @@ class DetailDialog(QDialog):
     PHOTO_URL = config.APP_CONFIG['photo_url']
 
     m_person_id = None
-    m_parent = None
     
     def __init__(self, *positional_parameters, **keyword_parameters):
         super(DetailDialog, self).__init__()
@@ -19,15 +18,15 @@ class DetailDialog(QDialog):
         # Set up the user interface from Designer.
         self.person_detail = Ui_DetailDialog()
         self.resize(550, 500)
-        self.setMinimumSize(QtCore.QSize(550, 500))
+        self.setMinimumSize(QSize(550, 500))
         self.person_detail.setupUi(self)
         
         self.m_person_id = positional_parameters[1]
         self.person_detail.buttonBox.clicked.connect(self.close)
-        
+
+        QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+
         self.getPersonDetail()
-        
-        # QApplication.setOverrideCursor(QtCore.Qt.ArrowCursor)
         
     def getPersonDetail(self):
         self.congress = Congress(self.API_KEY)
@@ -48,6 +47,7 @@ class DetailDialog(QDialog):
             pass
 
         self.person_detail.lblPhoto.setPixmap(QPixmap(img).scaledToWidth(100))
+
         try:
             self.person_detail.lblName.setText(str(senator['first_name']) + ' ' + str(senator['last_name']))
             self.person_detail.textState.setText(str(senator['roles'][0]['state']))
@@ -56,21 +56,18 @@ class DetailDialog(QDialog):
             self.person_detail.textBirthday.setText(str(senator['date_of_birth']))
             self.person_detail.textPhone.setText(str(senator['roles'][0]['phone']))
             self.person_detail.textAddress.setText(str(senator['roles'][0]['office']))
-
-            self.person_detail.lblContact.setOpenExternalLinks(True)
-            self.person_detail.lblWeb.setOpenExternalLinks(True)
-            self.person_detail.lblGovTrack.setOpenExternalLinks(True)
-            self.person_detail.lblVoteSmart.setOpenExternalLinks(True)
-            self.person_detail.lblCrp.setOpenExternalLinks(True)
+            self.person_detail.textVotes.setText(str(senator['roles'][0]['missed_votes_pct']))
 
             if senator['roles'][0]['contact_form']:
                 contact_url = senator['roles'][0]['contact_form']
                 self.person_detail.lblContact.setText('<a href=' + contact_url + '>Contact</a>')
+                self.person_detail.lblContact.setOpenExternalLinks(True)
             else:
                 self.person_detail.lblContact.setText('Contact')
 
             if senator['url']:
                 self.person_detail.lblWeb.setText('<a href=' + senator['url'] + '>Web</a>')
+                self.person_detail.lblWeb.setOpenExternalLinks(True)
             else:
                 self.person_detail.lblWeb.setText('Web')
             
@@ -78,12 +75,14 @@ class DetailDialog(QDialog):
                 url_name = str(senator['first_name']+ '_' + str(senator['last_name']))
                 url = 'https://www.govtrack.us/congress/members/' + url_name + '/'
                 self.person_detail.lblGovTrack.setText('<a href=' + url + str(senator['govtrack_id']) + '>GovTrack</a>')
+                self.person_detail.lblGovTrack.setOpenExternalLinks(True)
             else:
                 self.person_detail.lblGovTrack.setText('GovTrack')
             
             if senator['votesmart_id']:
                 url = 'https://votesmart.org/candidate/'
                 self.person_detail.lblVoteSmart.setText('<a href=' + url + str(senator['votesmart_id']) + '>VoteSmart</a>')
+                self.person_detail.lblVoteSmart.setOpenExternalLinks(True)
             else:
                 self.person_detail.lblVoteSmart.setText('VoteSmart')
             
@@ -93,11 +92,14 @@ class DetailDialog(QDialog):
                 url = 'https://www.opensecrets.org/members-of-congress/summary?cid&#61;'
                 crp_link = '<a href=' + url + str(senator['crp_id']) + '>CRP</a>'
                 self.person_detail.lblCrp.setText(crp_link)
+                self.person_detail.lblCrp.setOpenExternalLinks(True)
             else:
                 self.person_detail.lblCrp.setText('CRP')
             
         except KeyError:
             pass
+
+        QApplication.restoreOverrideCursor()
 
 if __name__ == '__main__':
     import sys

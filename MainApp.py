@@ -26,7 +26,7 @@ class AppWindow(QMainWindow):
         self.ui.listHouse.clicked.connect(self.onHouseClick)
 
         # Search 
-        # Use lambda to pass parameters with signals
+        # Use lambda to pass signals with parameters
         self.ui.leSearchSenate.returnPressed.connect(lambda: self.onSearchClick('senate'))
         self.ui.leSearchHouse.returnPressed.connect(lambda: self.onSearchClick('house'))
 
@@ -100,7 +100,7 @@ class AppWindow(QMainWindow):
         
         self.person_detail = DetailDialog(self, person_id)
         self.person_detail.exec_()
-    
+
 if __name__ == '__main__':
     import sys
 
