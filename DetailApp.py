@@ -56,14 +56,7 @@ class DetailDialog(QDialog):
             self.person_detail.textBirthday.setText(str(senator['date_of_birth']))
             self.person_detail.textPhone.setText(str(senator['roles'][0]['phone']))
             self.person_detail.textAddress.setText(str(senator['roles'][0]['office']))
-            self.person_detail.textVotes.setText(str(senator['roles'][0]['missed_votes_pct']))
-
-            if senator['roles'][0]['contact_form']:
-                contact_url = senator['roles'][0]['contact_form']
-                self.person_detail.lblContact.setText('<a href=' + contact_url + '>Contact</a>')
-                self.person_detail.lblContact.setOpenExternalLinks(True)
-            else:
-                self.person_detail.lblContact.setText('Contact')
+            self.person_detail.textVotes.setText(str(senator['roles'][0]['missed_votes_pct']) + '%')
 
             if senator['url']:
                 self.person_detail.lblWeb.setText('<a href=' + senator['url'] + '>Web</a>')
